@@ -123,6 +123,8 @@ def start():
 
         return render_template('archived_tariffs.html', archived=archived)
 
+    print(os.getenv('APP_ENV'))
+    print(os.getenv('PORT'))
     if os.getenv('APP_ENV') == 'PROD' and os.getenv('PORT'):
         waitress.serve(app, port=os.getenv('PORT'))
     else:
