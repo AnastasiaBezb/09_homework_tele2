@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <ul class="list-group mt-3"></ul>
+            <a class="btn btn-warning btn-lg" href="actual_tariffs.html" role="button">Тарифы</a>
+            <ul class="list-group mt-5"></ul>
+            <h1>Архивные тарифы</h1>
+            <ul class="list-group mt-5"></ul>
+
+            <div class="mx-auto" style="width: 200px;"><h2>Тарифы</h2></div>
+
+            <ul class="list-group mt-2"> <!-- mt-x добавляет вертикальный отступ -->
+                {% for item in archived %}
+                <li class="list-group-item">
+                    <a>{{item.name}}</a>
+                </li>
+                {% endfor %}
+            </ul>
+
+
+            <!--{% if not archived %}-->
+            <!--<p>No archived tariffs</p>-->
+            <!--{% endif %}-->
+            <!--<div class="mt-2">-->
+            <!--</div>-->
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
