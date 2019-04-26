@@ -25,102 +25,35 @@ def start():
     manager.add(infinitely_black)
     manager.add(city)
 
+    @app.route('/')
+    def index():
+        actual = manager.actual()
+        for item in actual:
+            if item.price_period == 'month':
+                item.price_period = 'месяц'
+        archived = manager.archived()
+        for item in archived:
+            if item.price_period == 'month':
+                item.price_period = 'месяц'
+
+        return render_template('tariffs.html', actual=actual, archived=archived)
+
     @app.route('/tariffs')
     def actual_tariffs():
         actual = manager.actual()
-        for item in actual:
-            if item.price == 0:
-                item.price = 'Без абонентской платы'
-                item.price_period = ' '
-            else:
-                item.price = item.price
 
         for item in actual:
-            if item.gb == -1:
-                item.gb = 'Безлимитный интернет'
-            if item.gb == 0:
-                item.gb = ' '
-            else:
-                item.gb = item.gb
-
-        for item in actual:
-            if item.minutes == 0:
-                item.minutes = ' '
-            else:
-                item.minutes = item.minutes
-        for item in actual:
-            if item.sms == 0:
-                item.sms = ' '
-            else:
-                item.sms = item.sms
-
-        for item in actual:
-            if item.hit == True:
-                item.hit = 'Хит продаж'
-            else:
-                item.hit = ' '
-
-        for item in actual:
-            if item.gb_unlim == None:
-                item.gb_unlim = ' '
-            else:
-                item.gb_unlim = item.gb_unlim
-
-        for item in actual:
-            if item.minutes_unlim_tele2 == True:
-                item.minutes_unlim_tele2 = 'безлимит на Tele2 России'
-            else:
-                item.minutes_unlim_tele2 = ' '
-
+            if item.price_period == 'month':
+                item.price_period = 'месяц'
         return render_template('actual_tariffs.html', actual=actual)
 
     @app.route('/tariffs/archive')
     def archived_tariffs():
         archived = manager.archived()
-        for item in archived:
-            if item.price == 0:
-                item.price = 'Без абонентской платы'
-                item.price_period = ' '
-            else:
-                item.price = item.price
 
         for item in archived:
-            if item.gb == -1:
-                item.gb = 'Безлимитный интернет'
-            if item.gb == 0:
-                item.gb = ' '
-            else:
-                item.gb = item.gb
-
-        for item in archived:
-            if item.minutes == 0:
-                item.minutes = ' '
-            else:
-                item.minutes = item.minutes
-        for item in archived:
-            if item.sms == 0:
-                item.sms = ' '
-            else:
-                item.sms = item.sms
-
-        for item in archived:
-            if item.hit == True:
-                item.hit = 'Хит продаж'
-            else:
-                item.hit = ' '
-
-        for item in archived:
-            if item.gb_unlim == None:
-                item.gb_unlim = ' '
-            else:
-                item.gb_unlim = item.gb_unlim
-
-        for item in archived:
-            if item.minutes_unlim_tele2 == True:
-                item.minutes_unlim_tele2 = 'безлимит на Tele2 России'
-            else:
-                item.minutes_unlim_tele2 = ' '
-
+            if item.price_period == 'month':
+                item.price_period = 'месяц'
         return render_template('archived_tariffs.html', archived=archived)
 
     print(os.getenv('APP_ENV'))

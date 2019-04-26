@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Actual tariffs</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
@@ -14,36 +14,70 @@
     <div class="row">
         <div class="col">
             <ul class="list-group mt-3"></ul>
-            <a class="btn btn-warning btn-lg" href="archived_tariffs.html" role="button">Архивные тарифы</a>
+            <a class="btn btn-secondary btn-lg" href="http://127.0.0.1:9876/" role="button">Tele2</a>
+            <a class="btn btn-warning btn-lg" href="http://127.0.0.1:9876/tariffs" role="button">Актуальные тарифы</a>
+            <a class="btn btn-warning btn-lg" href="http://127.0.0.1:9876/tariffs/archive" role="button">Архивные тарифы</a>
+
+
             <ul class="list-group mt-5"></ul>
-            <h1>Актуальные тарифы</h1>
+            <div class="mx-auto" style="width: 500px;"><h1>Актуальные тарифы</h1></div>
             <ul class="list-group mt-5"></ul>
+            <div class="mx-left" style="width: 100px;"><h2>Тарифы</h2></div>
+            <ul class="list-group mt-4"></ul>
 
-            <div class="mx-auto" style="width: 200px;"><h2>Тарифы</h2></div>
-
-
-
-            <ul class="list-group mt-2"> <!-- mt-x добавляет вертикальный отступ -->
+            <table class="table">
+                <!--<thead><tr></tr></thead>-->
+                <tbody>
                 {% for item in actual %}
-                <li class="list-group-item">
-                    <a>{{item.name}}</a>
-                </li>
+                <tr>
+                    <td>
+                        <strong>{{item.name}}</strong>
+                        {% if item.hit==True %}
+                        <span class="badge badge-warning">Хит продаж</span>
+                        {% endif %}
+                        <ul class="list-group mt-2"></ul>
+                        {% if item.price==0 %}
+                            <h6>Без абонентской платы</h6>
+                        {% elif item.price!=0 %}
+                            <h2><strong>{{item.price}} <sup>₽</sup></strong><sub>/{{item.price_period}}</sub></h2>
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {% if item.gb==-1 %}
+                        <h5><strong>БЕЗЛИМИТНЫЙ ИНТЕРНЕТ</strong></h5>
+                        {% elif item.gb!=0 %}
+                        <h5><strong>{{item.gb}} ГБ</strong></h5>
+                        {% endif %}
+                        <ul class="list-group mt-3"></ul>
+
+                        {% if item.gb_unlim!=None %}
+                        <h6> +безлимитные</h6>
+                        <h6>vk,fb,whatsapp,inst,viber,telegram</h6>
+                        {% endif %}
+
+                    </td>
+
+                    <td>
+                        {% if item.minutes!=0 %}
+                        <h5><strong>{{item.minutes}}</strong> мин.</h5>
+                        {% endif %}
+                        {% if item.minutes_unlim_tele2==True %}
+                        <h6> +безлимит на Tele2 России</h6>
+                        {% endif%}
+
+                    </td>
+
+                    <td>
+                        {% if item.sms!=0 %}
+                        <h5><strong>{{item.sms}}</strong> SMS </h5>
+                        {% endif %}
+
+                    </td>
+                  </tr>
                 {% endfor %}
-            </ul>
-
-
-            <ul class="list-group mt-2">
-                <li class="list-group-item">
-                    <a>{{item.name}}</a>
-                </li>
-            </ul>
-
-            <!--{% if not actual %}-->
-            <!--<p>No tariffs, try again later</p>-->
-            <!--{% endif %}-->
-            <!--<div class="mt-2">-->
-            <!--</div>-->
-
+                </tbody>
+              </table>
         </div>
     </div>
 </div>
